@@ -16,6 +16,8 @@ def fuzzy_t_norm(membership_values1, membership_values2):
 def fuzzy_s_norm(membership_values1, membership_values2):
     return np.minimum(1, membership_values1 + membership_values2)
 
+### Plot functions
+
 def plot_complement(universe, set1, set2):
     comp1 = fuzzy_complement(set1)
     comp2 = fuzzy_complement(set2)
