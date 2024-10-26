@@ -10,8 +10,11 @@ def fuzzy_union(membership_values1, membership_values2):
 def fuzzy_intersection(membership_values1, membership_values2):
     return np.minimum(membership_values1, membership_values2)
 
-def fuzzy_norma_dua(membership_values1, membership_values2):
-    return (membership_values1 + membership_values2) / 2
+def fuzzy_t_norm(membership_values1, membership_values2):
+    return membership_values1 * membership_values2
+
+def fuzzy_s_norm(membership_values1, membership_values2):
+    return np.minimum(1, membership_values1 + membership_values2)
 
 def plot_complement(universe, set1, set2):
     comp1 = fuzzy_complement(set1)
@@ -74,18 +77,18 @@ def plot_intersection(universe, set1, set2):
     plt.legend()
     plt.grid(True)
 
-    # Plot Interseção
+    # Plot Intercessão
     plt.subplot(2, 1, 2)
-    plt.plot(universe, intersection, label="Interseção", color="blue", linestyle='--')
-    plt.title("Interseção")
+    plt.plot(universe, intersection, label="Intercessão", color="blue", linestyle='--')
+    plt.title("Intercessão")
     plt.legend()
     plt.grid(True)
 
     plt.tight_layout()
     plt.show()
 
-def plot_norma_dua(universe, set1, set2):
-	norma_dua = fuzzy_norma_dua(set1, set2)
+def plot_t_norm(universe, set1, set2):
+	t_norm = fuzzy_t_norm(set1, set2)
 
 	plt.figure(figsize=(12, 10))
 
@@ -99,7 +102,30 @@ def plot_norma_dua(universe, set1, set2):
 
 	# Plot Norma-dua
 	plt.subplot(2, 1, 2)
-	plt.plot(universe, norma_dua, label="Norma-dua", color="blue", linestyle='--')
+	plt.plot(universe, t_norm, label="Norma-dua", color="blue", linestyle='--')
+	plt.title("Norma-dua")
+	plt.legend()
+	plt.grid(True)
+
+	plt.tight_layout()
+	plt.show()
+
+def plot_s_norm(universe, set1, set2):
+	s_norm = fuzzy_s_norm(set1, set2)
+
+	plt.figure(figsize=(12, 10))
+
+	# Plot original sets
+	plt.subplot(2, 1, 1)
+	plt.plot(universe, set1, label="Conjunto 1", color="blue")
+	plt.plot(universe, set2, label="Conjunto 2", color="orange")
+	plt.title("Conjuntos Originais")
+	plt.legend()
+	plt.grid(True)
+
+	# Plot Norma-dua
+	plt.subplot(2, 1, 2)
+	plt.plot(universe, s_norm, label="Norma-dua", color="blue", linestyle='--')
 	plt.title("Norma-dua")
 	plt.legend()
 	plt.grid(True)
