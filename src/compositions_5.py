@@ -1,59 +1,84 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
 from membership_functions_1 import triangular
 
 
-# Função para calcular a composição Max-Min
-def max_min_composition(set1, set2):
-    result = np.zeros((set1.shape[0], set2.shape[1]))
-    for i in range(set1.shape[0]):
-        for j in range(set2.shape[1]):
-            result[i, j] = np.max(np.minimum(set1[i, :], set2[:, j]))
-    return result
+def fuzzy_relation(set1, set2, operator):
+    if len(set1) != len(set2):
+        raise ValueError("Os conjuntos devem ter o mesmo tamanho.")
+
+    relation_matrix = np.zeros((len(set1), len(set2)))
+
+    for i in range(len(set1)):
+        for j in range(len(set2)):
+            relation_matrix[i, j] = operator(set1[i], set2[j])
+
+    return relation_matrix
 
 
-# Função para calcular a composição Min-Max
-def min_max_composition(set1, set2):
-    result = np.zeros((set1.shape[0], set2.shape[1]))
-    for i in range(set1.shape[0]):
-        for j in range(set2.shape[1]):
-            result[i, j] = np.min(np.maximum(set1[i, :], set2[:, j]))
-    return result
+def max_min_composition(relation1, relation2):
+    return np.array(
+        [
+            [
+                np.max(np.minimum(relation1[i, :], relation2[:, j]))
+                for j in range(relation2.shape[1])
+            ]
+            for i in range(relation1.shape[0])
+        ]
+    )
 
 
-# Função para calcular a composição Max-Prod
-def max_prod_composition(set1, set2):
-    result = np.zeros((set1.shape[0], set2.shape[1]))
-    for i in range(set1.shape[0]):
-        for j in range(set2.shape[1]):
-            result[i, j] = np.max(set1[i, :] * set2[:, j])
-    return result
+def min_max_composition(relation1, relation2):
+    return np.array(
+        [
+            [
+                np.min(np.maximum(relation1[i, :], relation2[:, j]))
+                for j in range(relation2.shape[1])
+            ]
+            for i in range(relation1.shape[0])
+        ]
+    )
 
 
-# Função para exibir a matriz de relação fuzzy e a composição
-def plot_composition_matrix(matrix, title):
-    plt.imshow(matrix, cmap="Blues", interpolation="nearest")
-    plt.colorbar()
-    plt.title(title)
-    plt.xlabel("Conjunto 2")
-    plt.ylabel("Conjunto 1")
+def max_prod_composition(relation1, relation2):
+    return np.array(
+        [
+            [
+                np.max(relation1[i, :] * relation2[:, j])
+                for j in range(relation2.shape[1])
+            ]
+            for i in range(relation1.shape[0])
+        ]
+    )
+
+
+def plot_compositions(relation1, relation2):
+    fig, axs = plt.subplots(1, 3, figsize=(18, 5))
+
+    max_min_result = max_min_composition(relation1, relation2)
+    min_max_result = min_max_composition(relation1, relation2)
+    max_prod_result = max_prod_composition(relation1, relation2)
+
+    for ax, result, title in zip(
+        axs,
+        [max_min_result, min_max_result, max_prod_result],
+        ["Max-Min Composition", "Min-Max Composition", "Max-Prod Composition"],
+    ):
+        cax = ax.matshow(result, cmap="Blues")
+        fig.colorbar(cax, ax=ax)
+        ax.set_title(title)
+
     plt.show()
 
 
-# Exemplo de uso
-universe = np.linspace(0, 50, 100)
+# Run
+if __name__ == "__main__":
+    universe = np.linspace(0, 50, 10)
 
-set1 = triangular(universe, -2, 5, 10)
-set2 = triangular(universe, 7.5, 15, 20)
-relation_matrix = np.outer(set1, set2)  # Criando uma matriz de relação exemplo
+    set1 = triangular(universe, 10, 20, 30)
+    set2 = triangular(universe, 20, 30, 40)
 
-# Calculando as composições
-max_min_result = max_min_composition(relation_matrix, relation_matrix)
-min_max_result = min_max_composition(relation_matrix, relation_matrix)
-max_prod_result = max_prod_composition(relation_matrix, relation_matrix)
+    relation1 = fuzzy_relation(set1, set2, np.minimum)
+    relation2 = fuzzy_relation(set1, set2, np.maximum)
 
-# Plotando os resultados
-plot_composition_matrix(max_min_result, "Max-Min Composition")
-plot_composition_matrix(min_max_result, "Min-Max Composition")
-plot_composition_matrix(max_prod_result, "Max-Prod Composition")
+    plot_compositions(relation1, relation2)
