@@ -274,6 +274,7 @@ def plot_exponencial(universe_init, universe_end, samples):
     plt.grid(True)
     plt.show()
 
+
 # Run
 universe = np.linspace(0, 50, 1000)
 samples = [14, 35]
