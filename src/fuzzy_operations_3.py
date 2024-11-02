@@ -346,10 +346,9 @@ def plot_s_norm_drastic_sum(universe, set1, set2):
 # Run
 if __name__ == "__main__":
     universe = np.linspace(0, 50, 1000)
-    samples = [14, 35]
 
-    set1 = membership_functions_1.triangular(universe, -2, 5, 10)
-    set2 = membership_functions_1.triangular(universe, 7.5, 15, 20)
+    set1 = membership_functions_1.triangular(universe, 5, 10, 15)
+    set2 = membership_functions_1.triangular(universe, 5, 15, 21)
 
     plot_complement(universe, set1, set2)
     plot_union(universe, set1, set2)
@@ -361,4 +360,4 @@ if __name__ == "__main__":
     plot_s_norm_max(universe, set1, set2)
     plot_s_norm_probabilistic_sum(universe, set1, set2)
     plot_s_norm_limited_sum(universe, set1, set2)
-    plot_t_norm_drastic_product(universe, set1, set2)
+    plot_s_norm_drastic_sum(universe, set1, set2)

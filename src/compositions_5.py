@@ -64,19 +64,24 @@ def plot_compositions(relation1, relation2):
         [max_min_result, min_max_result, max_prod_result],
         ["Max-Min Composition", "Min-Max Composition", "Max-Prod Composition"],
     ):
-        cax = ax.matshow(result, cmap="Blues")
+        cax = ax.matshow(result, cmap="viridis", extent=[0, 50, 50, 0])
         fig.colorbar(cax, ax=ax)
+        
         ax.set_title(title)
+        ax.set_xlabel("Set2")
+        ax.set_ylabel("Set1")
+        ax.set_xlim(0, 50)
+        ax.set_ylim(50, 0)
 
     plt.show()
 
 
 # Run
 if __name__ == "__main__":
-    universe = np.linspace(0, 50, 10)
+    universe = np.linspace(0, 50, 100)
 
-    set1 = triangular(universe, 10, 20, 30)
-    set2 = triangular(universe, 20, 30, 40)
+    set1 = triangular(universe, 5, 10, 15)
+    set2 = triangular(universe, 9, 15, 21)
 
     relation1 = fuzzy_relation(set1, set2, np.minimum)
     relation2 = fuzzy_relation(set1, set2, np.maximum)

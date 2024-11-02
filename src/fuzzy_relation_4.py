@@ -27,19 +27,24 @@ def plot_fuzzy_relations(set1, set2, operator):
     relation = fuzzy_relation(set1, set2, operator)
 
     fig, ax = plt.subplots(figsize=(6, 5))
-    cax = ax.matshow(relation, cmap="Blues")
+    cax = ax.matshow(relation, cmap="viridis", extent=[0, 50, 50, 0])
     fig.colorbar(cax, ax=ax)
     ax.set_title(f"Relação Fuzzy usando {operator.__name__}")
+
+    ax.set_xlabel("Set2")
+    ax.set_ylabel("Set1")
+    ax.set_xlim(0, 50)
+    ax.set_ylim(50, 0)
 
     plt.show()
 
 
-# Exemplo de execução
+# Run
 if __name__ == "__main__":
-    universe = np.linspace(0, 50, 10)
+    universe = np.linspace(0, 50, 100)
 
-    set1 = triangular(universe, 10, 20, 30)
-    set2 = triangular(universe, 20, 30, 40)
+    set1 = triangular(universe, 5, 10, 15)
+    set2 = triangular(universe, 9, 15, 21)
 
     plot_fuzzy_relations(set1, set2, t_norm_min)
     plot_fuzzy_relations(set1, set2, t_norm_product)
