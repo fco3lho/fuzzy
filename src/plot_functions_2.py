@@ -276,17 +276,18 @@ def plot_exponencial(universe_init, universe_end, samples):
 
 
 # Run
-universe = np.linspace(0, 50, 1000)
-samples = [14, 35]
+if __name__ == "__main__":
+    universe = np.linspace(0, 50, 1000)
+    samples = [14, 35]
 
-plot_triangular(0, 50, samples)
-plot_trapezoidal(0, 50, samples)
-plot_gaussian(0, 50, samples)
-plot_sigmoidal(0, 50, samples)
-plot_sino(0, 50, samples)
-plot_s_function(0, 50, samples)
-plot_z_function(0, 50, samples)
-plot_cauchy(0, 50, samples)
-plot_gaussian_pair(0, 50, samples)
-plot_bell_shaped(0, 50, samples)
-plot_exponencial(0, 50, samples)
+    plot_triangular(0, 50, samples)
+    plot_trapezoidal(0, 50, samples)
+    plot_gaussian(0, 50, samples)
+    plot_sigmoidal(0, 50, samples)
+    plot_sino(0, 50, samples)
+    plot_s_function(0, 50, samples)
+    plot_z_function(0, 50, samples)
+    plot_cauchy(0, 50, samples)
+    plot_gaussian_pair(0, 50, samples)
+    plot_bell_shaped(0, 50, samples)
+    plot_exponencial(0, 50, samples)

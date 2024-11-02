@@ -35,12 +35,13 @@ def plot_fuzzy_relations(set1, set2, operator):
 
 
 # Exemplo de execução
-universe = np.linspace(0, 50, 10)
+if __name__ == "__main__":
+    universe = np.linspace(0, 50, 10)
 
-set1 = triangular(universe, -2, 5, 10)
-set2 = triangular(universe, 20, 30, 40)
+    set1 = triangular(universe, 10, 20, 30)
+    set2 = triangular(universe, 20, 30, 40)
 
-plot_fuzzy_relations(set1, set2, t_norm_min)
-plot_fuzzy_relations(set1, set2, t_norm_product)
-plot_fuzzy_relations(set1, set2, t_norm_drastic_product)
-plot_fuzzy_relations(set1, set2, t_norm_limited_product)
+    plot_fuzzy_relations(set1, set2, t_norm_min)
+    plot_fuzzy_relations(set1, set2, t_norm_product)
+    plot_fuzzy_relations(set1, set2, t_norm_drastic_product)
+    plot_fuzzy_relations(set1, set2, t_norm_limited_product)
