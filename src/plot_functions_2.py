@@ -18,12 +18,6 @@ def plot_triangular(universe_init, universe_end, samples):
             membership_functions_1.triangular(universe, a, b, c),
             color=colors[i],
         )
-        print(
-            f"Valor da amostra 1 para a função de pertinência triangular ({i}): {membership_functions_1.triangular(samples[0], a, b, c)}"
-        )
-        print(
-            f"Valor da amostra 2 para a função de pertinência triangular ({i}): {membership_functions_1.triangular(samples[1], a, b, c)}"
-        )
 
     for sample in samples:
         plt.axvline(x=sample, color="gray", linestyle="--", label=f"Amostra {sample}")
@@ -50,12 +44,6 @@ def plot_trapezoidal(universe_init, universe_end, samples):
             membership_functions_1.trapezoidal(universe, a, b, c, d),
             color=colors[i],
         )
-        print(
-            f"Valor da amostra 1 para a função de pertinência trapeizodal ({i}): {membership_functions_1.trapezoidal(samples[0], a, b, d)}"
-        )
-        print(
-            f"Valor da amostra 2 para a função de pertinência trapeizodal ({i}): {membership_functions_1.trapezoidal(samples[1], a, b, d)}"
-        )
 
     for sample in samples:
         plt.axvline(x=sample, color="gray", linestyle="--", label=f"Amostra {sample}")
@@ -77,12 +65,6 @@ def plot_gaussian(universe_init, universe_end, samples):
             universe,
             membership_functions_1.gaussian(universe, universe_init + 5 + 10 * i, 2.5),
             color=colors[i],
-        )
-        print(
-            f"Valor da amostra 1 para a função de pertinência triangular ({i}): {membership_functions_1.gaussian(samples[0], universe_init + 5 + 10*i, 2.5)}"
-        )
-        print(
-            f"Valor da amostra 2 para a função de pertinência triangular ({i}): {membership_functions_1.gaussian(samples[1], universe_init + 5 + 10*i, 2.5)}"
         )
 
     for sample in samples:
@@ -109,12 +91,6 @@ def plot_sigmoidal(universe_init, universe_end, samples):
             membership_functions_1.sigmoidal(universe, 0.1, 1, start, end),
             color=colors[i],
         )
-        print(
-            f"Valor da amostra 1 para a função de pertinência sigmoidal ({i}): {membership_functions_1.sigmoidal(samples[0], 0.1, 1, start, end)}"
-        )
-        print(
-            f"Valor da amostra 2 para a função de pertinência sigmoidal ({i}): {membership_functions_1.sigmoidal(samples[1], 0.1, 1, start, end)}"
-        )
 
     for sample in samples:
         plt.axvline(x=sample, color="gray", linestyle="--", label=f"Amostra {sample}")
@@ -136,12 +112,6 @@ def plot_sino(universe_init, universe_end, samples):
         b = (a + 10) + 0.25
 
         plt.plot(universe, membership_functions_1.sino(universe, a, b), color=colors[i])
-        print(
-            f"Valor da amostra 1 para a função de pertinência sino ({i}): {membership_functions_1.sino(samples[0], a, b)}"
-        )
-        print(
-            f"Valor da amostra 2 para a função de pertinência sino ({i}): {membership_functions_1.sino(samples[1], a, b)}"
-        )
 
     for sample in samples:
         plt.axvline(x=sample, color="gray", linestyle="--", label=f"Amostra {sample}")
@@ -168,12 +138,6 @@ def plot_s_function(universe_init, universe_end, samples):
             membership_functions_1.s_function(universe, a, b, c),
             color=colors[i],
         )
-        print(
-            f"Valor da amostra 1 para a função de pertinência s_function ({i}): {membership_functions_1.s_function(samples[0], a, b, c)}"
-        )
-        print(
-            f"Valor da amostra 2 para a função de pertinência s_function ({i}): {membership_functions_1.s_function(samples[1], a, b, c)}"
-        )
 
     for sample in samples:
         plt.axvline(x=sample, color="gray", linestyle="--", label=f"Amostra {sample}")
@@ -197,12 +161,6 @@ def plot_z_function(universe_init, universe_end, samples):
         plt.plot(
             universe, membership_functions_1.z_function(universe, a, b), color=colors[i]
         )
-        print(
-            f"Valor da amostra 1 para a função de pertinência z_function ({i}): {membership_functions_1.z_function(samples[0], a, b)}"
-        )
-        print(
-            f"Valor da amostra 2 para a função de pertinência z_function ({i}): {membership_functions_1.z_function(samples[1], a, b)}"
-        )
 
     for sample in samples:
         plt.axvline(x=sample, color="gray", linestyle="--", label=f"Amostra {sample}")
@@ -225,12 +183,6 @@ def plot_cauchy(universe_init, universe_end, samples):
 
         plt.plot(
             universe, membership_functions_1.cauchy(universe, a, gamma), color=colors[i]
-        )
-        print(
-            f"Valor da amostra 1 para a função de pertinência cauchy ({i}): {membership_functions_1.cauchy(samples[0], a, gamma)}"
-        )
-        print(
-            f"Valor da amostra 2 para a função de pertinência cauchy ({i}): {membership_functions_1.cauchy(samples[1], a, gamma)}"
         )
 
     for sample in samples:
@@ -261,12 +213,6 @@ def plot_gaussian_pair(universe_init, universe_end, samples):
             ),
             color=colors[i],
         )
-        print(
-            f"Valor da amostra 1 para a função de pertinência gaussian_pair ({i}): {membership_functions_1.gaussian_pair(samples[0], mean1, sigma1, mean2, sigma2)}"
-        )
-        print(
-            f"Valor da amostra 2 para a função de pertinência gaussian_pair ({i}): {membership_functions_1.gaussian_pair(samples[1], mean1, sigma1, mean2, sigma2)}"
-        )
 
     for sample in samples:
         plt.axvline(x=sample, color="gray", linestyle="--", label=f"Amostra {sample}")
@@ -293,12 +239,7 @@ def plot_bell_shaped(universe_init, universe_end, samples):
             membership_functions_1.bell_shaped(universe, a, b, c),
             color=colors[i],
         )
-        print(
-            f"Valor da amostra 1 para a função de pertinência bell_shaped ({i}): {membership_functions_1.bell_shaped(samples[0], a, b, c)}"
-        )
-        print(
-            f"Valor da amostra 2 para a função de pertinência bell_shaped ({i}): {membership_functions_1.bell_shaped(samples[1], a, b, c)}"
-        )
+
     for sample in samples:
         plt.axvline(x=sample, color="gray", linestyle="--", label=f"Amostra {sample}")
 
@@ -322,12 +263,6 @@ def plot_exponencial(universe_init, universe_end, samples):
             membership_functions_1.decreasing_exponential(universe, a, b),
             color=colors[i],
         )
-        print(
-            f"Valor da amostra 1 para a função de pertinência decreasing_exponencial ({i}): {membership_functions_1.decreasing_exponential(samples[0], a, b)}"
-        )
-        print(
-            f"Valor da amostra 2 para a função de pertinência decreasing_exponencial ({i}): {membership_functions_1.decreasing_exponential(samples[1], a, b)}"
-        )
 
     for sample in samples:
         plt.axvline(x=sample, color="gray", linestyle="--", label=f"Amostra {sample}")
@@ -338,3 +273,19 @@ def plot_exponencial(universe_init, universe_end, samples):
     plt.legend()
     plt.grid(True)
     plt.show()
+
+# Run
+universe = np.linspace(0, 50, 1000)
+samples = [14, 35]
+
+plot_triangular(0, 50, samples)
+plot_trapezoidal(0, 50, samples)
+plot_gaussian(0, 50, samples)
+plot_sigmoidal(0, 50, samples)
+plot_sino(0, 50, samples)
+plot_s_function(0, 50, samples)
+plot_z_function(0, 50, samples)
+plot_cauchy(0, 50, samples)
+plot_gaussian_pair(0, 50, samples)
+plot_bell_shaped(0, 50, samples)
+plot_exponencial(0, 50, samples)

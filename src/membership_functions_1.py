@@ -73,7 +73,7 @@ def cauchy(x, a, gamma):
 
 
 def gaussian_pair(x, mean1, sigma1, mean2, sigma2):
-    return max(
+    return np.maximum(
         np.exp(-0.5 * ((x - mean1) / sigma1) ** 2),
         np.exp(-0.5 * ((x - mean2) / sigma2) ** 2),
     )
