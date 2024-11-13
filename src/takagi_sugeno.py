@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from membership_functions_1 import gaussian
-from fuzzy_operations_3 import t_norm_min
+from fuzzy_operations_3 import t_norm_min, t_norm_product, t_norm_limited_product
 
 
 # Definir a função não-linear f(x)
@@ -44,6 +44,15 @@ def fuzzy_approximation(
     return numerator / denominator if denominator != 0 else 0
 
 
+###### 6
+def calculate_gradient(error, x_values, mu_values):
+    a_grad = -2 * np.mean(
+        error * np.array([mu * x for x, mu in zip(x_values, mu_values)])
+    )
+    b_grad = -2 * np.mean(error * np.array(mu_values))
+    return a_grad, b_grad
+
+
 if __name__ == "__main__":
     ###### 1. Criando universo e função não-linear passada
     x_values = np.linspace(0, 10, 100)
@@ -82,7 +91,7 @@ if __name__ == "__main__":
     plt.legend()
     plt.show()
 
-    ###### 3. Consequentes das regras (valores iniciais que podemos ajustar)
+    ###### 3. Consequentes das regras
     a1, b1 = 0.1, 0.5
     a2, b2 = -0.1, -0.5
     a3, b3 = 0.05, 0.3
@@ -125,7 +134,7 @@ if __name__ == "__main__":
     plt.legend()
     plt.show()
 
-    ###### 6
+    ###### 6. Gradiente descendente
     # Parâmetros para o gradiente descendente
     learning_rate = 0.01
     epochs = 1000
@@ -153,62 +162,21 @@ if __name__ == "__main__":
         )
         error = y_values - y_pred
         mse = np.mean(error**2)
+        rmse = (np.mean(error**2))**(1/2)
 
-        # Cálculo dos gradientes para cada parâmetro (a1, b1, a2, b2, a3, b3)
-        a1_grad = -2 * np.mean(
-            error
-            * np.array(
-                [
-                    mu * x
-                    for x, mu in zip(
-                        x_values,
-                        [gaussian(x, mu_low_gaussian, sigma_low) for x in x_values],
-                    )
-                ]
-            )
+        # Gradientes para cada parâmetro (a, b) de cada regra
+        a1_grad, b1_grad = calculate_gradient(
+            error, x_values, [gaussian(x, mu_low_gaussian, sigma_low) for x in x_values]
         )
-        b1_grad = -2 * np.mean(
-            error
-            * np.array([gaussian(x, mu_low_gaussian, sigma_low) for x in x_values])
+        a2_grad, b2_grad = calculate_gradient(
+            error,
+            x_values,
+            [gaussian(x, mu_medium_gaussian, sigma_medium) for x in x_values],
         )
-
-        a2_grad = -2 * np.mean(
-            error
-            * np.array(
-                [
-                    mu * x
-                    for x, mu in zip(
-                        x_values,
-                        [
-                            gaussian(x, mu_medium_gaussian, sigma_medium)
-                            for x in x_values
-                        ],
-                    )
-                ]
-            )
-        )
-        b2_grad = -2 * np.mean(
-            error
-            * np.array(
-                [gaussian(x, mu_medium_gaussian, sigma_medium) for x in x_values]
-            )
-        )
-
-        a3_grad = -2 * np.mean(
-            error
-            * np.array(
-                [
-                    mu * x
-                    for x, mu in zip(
-                        x_values,
-                        [gaussian(x, mu_high_gaussian, sigma_high) for x in x_values],
-                    )
-                ]
-            )
-        )
-        b3_grad = -2 * np.mean(
-            error
-            * np.array([gaussian(x, mu_high_gaussian, sigma_high) for x in x_values])
+        a3_grad, b3_grad = calculate_gradient(
+            error,
+            x_values,
+            [gaussian(x, mu_high_gaussian, sigma_high) for x in x_values],
         )
 
         # Atualização dos parâmetros
@@ -221,13 +189,16 @@ if __name__ == "__main__":
 
         # Exibir o erro a cada 100 épocas para monitoramento
         if epoch % 100 == 0:
-            print(f"Epoch {epoch}, MSE: {mse:.4f}")
+            print(f"Epoch {epoch}, MSE: {mse:.4f}, RMSE: {rmse:.4f}")
 
     # Parâmetros finais
-    print("Parâmetros ajustados dos consequentes:")
-    print(f"a1: {a1}, b1: {b1}")
-    print(f"a2: {a2}, b2: {b2}")
-    print(f"a3: {a3}, b3: {b3}")
+    print("\nParâmetros ajustados dos consequentes:")
+    print(f"a1: {a1:.4f}, b1: {b1:.4f}")
+    print(f"a2: {a2:.4f}, b2: {b2:.4f}")
+    print(f"a3: {a3:.4f}, b3: {b3:.4f}")
+
+    # Erro
+    print(f"\nMSE: {mse:.4f}, RMSE: {rmse:.4f}")
 
     # Plotar o gráfico
     y_approx = np.array(
@@ -251,14 +222,11 @@ if __name__ == "__main__":
         ]
     )
 
-    plt.figure(figsize=(10, 6))
     plt.plot(x_values, y_values, label="Função original f(x)", color="blue")
     plt.plot(x_values, y_approx, label="Aproximação fuzzy", color="red", linestyle="--")
     plt.xlabel("x")
     plt.ylabel("f(x)")
-    plt.title(
-        "Comparação da Função Original com a Aproximação Fuzzy de Takagi-Sugeno (Primeira Ordem)"
-    )
+    plt.title("Aproximação Fuzzy com gradiente descendente")
     plt.legend()
     plt.grid()
     plt.show()
