@@ -136,8 +136,10 @@ if __name__ == "__main__":
 
     ###### 6. Gradiente descendente
     # Parâmetros para o gradiente descendente
-    learning_rate = 0.01
+    learning_rate = 0.05
     epochs = 1000
+
+    mse_history = []
 
     for epoch in range(epochs):
         y_pred = np.array(
@@ -160,9 +162,11 @@ if __name__ == "__main__":
                 for x in x_values
             ]
         )
+
         error = y_values - y_pred
         mse = np.mean(error**2)
         rmse = (np.mean(error**2))**(1/2)
+        mse_history.append(mse) 
 
         # Gradientes para cada parâmetro (a, b) de cada regra
         a1_grad, b1_grad = calculate_gradient(
@@ -227,6 +231,16 @@ if __name__ == "__main__":
     plt.xlabel("x")
     plt.ylabel("f(x)")
     plt.title("Aproximação Fuzzy com gradiente descendente")
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+    # Plotar o gráfico do erro
+    plt.figure(figsize=(10, 6))
+    plt.plot(range(epochs), mse_history, label="Erro (MSE)", color="orange")
+    plt.xlabel("Épocas")
+    plt.ylabel("Erro (MSE)")
+    plt.title("Evolução do Erro ao Longo do Treinamento")
     plt.legend()
     plt.grid()
     plt.show()
